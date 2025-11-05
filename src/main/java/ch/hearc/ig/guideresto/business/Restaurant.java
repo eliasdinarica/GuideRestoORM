@@ -1,22 +1,39 @@
 package ch.hearc.ig.guideresto.business;
 
+import jakarta.persistence.*;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author cedric.baudet
- */
+@Entity
+@Table(name = "restaurants")
 public class Restaurant implements IBusinessObject {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "NUMERO")
     private Integer id;
+
+    @Column(name = "NOM", nullable = false, length = 100)
     private String name;
+
+    @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "SITE_WEB", length = 100)
     private String website;
-    private Set<Evaluation> evaluations;
+
+    // La table a une colonne ADRESSE (VARCHAR2)
+    // On ignore la classe Localisation pour le moment
+    @Transient
     private Localisation address;
+
+    @Transient
     private RestaurantType type;
+
+    @Transient
+    private Set<Evaluation> evaluations;
 
     public Restaurant() {
         this(null, null, null, null, null, null);
@@ -100,5 +117,15 @@ public class Restaurant implements IBusinessObject {
 
     public boolean hasEvaluations() {
         return CollectionUtils.isNotEmpty(evaluations);
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", website='" + website + '\'' +
+                '}';
     }
 }

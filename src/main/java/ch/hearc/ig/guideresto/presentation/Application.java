@@ -2,6 +2,9 @@ package ch.hearc.ig.guideresto.presentation;
 
 import ch.hearc.ig.guideresto.business.*;
 import ch.hearc.ig.guideresto.persistence.FakeItems;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,6 +22,18 @@ public class Application {
     private static final Logger logger = LogManager.getLogger(Application.class);
 
     public static void main(String[] args) {
+
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("guideRestoJPA");
+        EntityManager em = emf.createEntityManager();
+
+// 🔍 Charger un restaurant existant
+        Restaurant resto = em.find(Restaurant.class, 1);
+        System.out.println(resto);
+
+        em.close();
+        emf.close();
+
         scanner = new Scanner(System.in);
 
         System.out.println("Bienvenue dans GuideResto ! Que souhaitez-vous faire ?");
