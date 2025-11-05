@@ -1,16 +1,25 @@
 package ch.hearc.ig.guideresto.business;
 
+import jakarta.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author cedric.baudet
  */
+@Entity
+@Table(name = "villes")
 public class City implements IBusinessObject {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "NUMERO")
     private Integer id;
+    @Column(name = "CODE_POSTAL")
     private String zipCode;
+    @Column(name = "NOM_VILLE")
     private String cityName;
+    @Transient
     private Set<Restaurant> restaurants;
 
     public City() {
