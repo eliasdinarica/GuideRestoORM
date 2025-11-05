@@ -15,7 +15,7 @@ public class RestaurantType implements IBusinessObject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NUMERO")
     private Integer id;
-    @Column(name = "NOM")
+    @Column(name = "LIBELLE")
     private String label;
     @Column(name = "DESCRIPTION")
     private String description;

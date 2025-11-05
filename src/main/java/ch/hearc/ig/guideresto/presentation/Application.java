@@ -29,7 +29,7 @@ public class Application {
 
 // 🔍 Charger un restaurant existant
         Restaurant resto = em.find(Restaurant.class, 1);
-        System.out.println(resto);
+        System.out.println(resto.getType());
 
         em.close();
         emf.close();
