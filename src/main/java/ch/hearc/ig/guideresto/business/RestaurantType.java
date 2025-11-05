@@ -1,16 +1,25 @@
 package ch.hearc.ig.guideresto.business;
 
+import jakarta.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author cedric.baudet
  */
+@Entity
+@Table(name = "types_gastronomiques")
 public class RestaurantType implements IBusinessObject {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "NUMERO")
     private Integer id;
+    @Column(name = "NOM")
     private String label;
+    @Column(name = "DESCRIPTION")
     private String description;
+    @Transient
     private Set<Restaurant> restaurants;
 
     public RestaurantType() {
