@@ -19,7 +19,7 @@ public class City implements IBusinessObject {
     private String zipCode;
     @Column(name = "NOM_VILLE")
     private String cityName;
-    @Transient
+    @OneToMany(mappedBy = "city")
     private Set<Restaurant> restaurants;
 
     public City() {

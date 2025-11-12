@@ -19,7 +19,7 @@ public class RestaurantType implements IBusinessObject {
     private String label;
     @Column(name = "DESCRIPTION")
     private String description;
-    @Transient
+    @OneToMany(mappedBy = "RestaurantType")
     private Set<Restaurant> restaurants;
 
     public RestaurantType() {

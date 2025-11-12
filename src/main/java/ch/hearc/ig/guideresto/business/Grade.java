@@ -17,7 +17,7 @@ public class Grade implements IBusinessObject {
     @Transient
     private CompleteEvaluation evaluation;
     @ManyToOne
-    @JoinColumn(name = "FK_TYPE")
+    @JoinColumn(name = "FK_CRIT", nullable = false)
     private EvaluationCriteria criteria;
 
     public Grade() {

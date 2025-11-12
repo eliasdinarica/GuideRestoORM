@@ -26,11 +26,11 @@ public class Restaurant implements IBusinessObject {
 
     // La table a une colonne ADRESSE (VARCHAR2)
     // On ignore la classe Localisation pour le moment
-    @Transient
+    @Embedded
     private Localisation address;
 
     @ManyToOne
-    @JoinColumn(name = "FK_TYPE")
+    @JoinColumn(name = "FK_TYPE", nullable = false)
     private RestaurantType type;
 
     @Transient
