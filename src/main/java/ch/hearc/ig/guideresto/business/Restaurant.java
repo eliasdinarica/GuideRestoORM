@@ -11,7 +11,6 @@ import java.util.Set;
 public class Restaurant implements IBusinessObject {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NUMERO")
     private Integer id;
 

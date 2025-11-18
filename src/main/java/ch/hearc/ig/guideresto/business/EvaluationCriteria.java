@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 @Table(name = "criteres_evaluation")
 public class EvaluationCriteria implements IBusinessObject {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NUMERO")
     private Integer id;
     @Column(name = "NOM")
