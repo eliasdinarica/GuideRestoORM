@@ -2,6 +2,7 @@ package ch.hearc.ig.guideresto.presentation;
 
 import ch.hearc.ig.guideresto.business.*;
 import ch.hearc.ig.guideresto.persistence.FakeItems;
+import jakarta.persistence.Basic;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -30,7 +31,8 @@ public class Application {
 // 🔍 Charger un restaurant existant
         Restaurant resto = em.find(Restaurant.class, 1);
         System.out.println(resto.getType());
-
+        BasicEvaluation eval = em.find(BasicEvaluation.class, 42);
+        System.out.println(eval.getVisitDate());
         em.close();
         emf.close();
 

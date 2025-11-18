@@ -1,32 +1,37 @@
 package ch.hearc.ig.guideresto.business;
 
-/**
- * @author cedric.baudet
- */
-
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "COMMENTAIRES")
 public class CompleteEvaluation extends Evaluation {
 
+    @Column(name = "COMMENTAIRE", nullable = false)
     private String comment;
+
+    @Column(name = "NOM_UTILISATEUR", nullable = false, length = 100)
     private String username;
-    private Set<Grade> grades;
+
+    @OneToMany(mappedBy = "evaluation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Grade> grades = new HashSet<>();
 
     public CompleteEvaluation() {
-        this(null, null, null, null);
+        super();
     }
 
     public CompleteEvaluation(Date visitDate, Restaurant restaurant, String comment, String username) {
-        this(null, visitDate, restaurant, comment, username);
+        super(null, visitDate, restaurant);
+        this.comment = comment;
+        this.username = username;
     }
 
     public CompleteEvaluation(Integer id, Date visitDate, Restaurant restaurant, String comment, String username) {
         super(id, visitDate, restaurant);
         this.comment = comment;
         this.username = username;
-        this.grades = new HashSet();
     }
 
     public String getComment() {

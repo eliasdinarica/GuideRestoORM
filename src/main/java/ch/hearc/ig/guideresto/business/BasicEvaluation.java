@@ -1,21 +1,26 @@
 package ch.hearc.ig.guideresto.business;
 
+import jakarta.persistence.*;
 import java.util.Date;
 
-/**
- * @author cedric.baudet
- */
+@Entity
+@Table(name = "LIKES")
 public class BasicEvaluation extends Evaluation {
 
+    @Column(name = "APPRECIATION", nullable = false, length = 1)
     private Boolean likeRestaurant;
+
+    @Column(name = "ADRESSE_IP", nullable = false, length = 100)
     private String ipAddress;
 
     public BasicEvaluation() {
-        this(null, null, null, null);
+        super();
     }
 
     public BasicEvaluation(Date visitDate, Restaurant restaurant, Boolean likeRestaurant, String ipAddress) {
-        this(null, visitDate, restaurant, likeRestaurant, ipAddress);
+        super(null, visitDate, restaurant);
+        this.likeRestaurant = likeRestaurant;
+        this.ipAddress = ipAddress;
     }
 
     public BasicEvaluation(Integer id, Date visitDate, Restaurant restaurant, Boolean likeRestaurant, String ipAddress) {
@@ -35,9 +40,4 @@ public class BasicEvaluation extends Evaluation {
     public String getIpAddress() {
         return ipAddress;
     }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
-
 }
