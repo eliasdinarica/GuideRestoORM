@@ -12,7 +12,6 @@ import java.util.Set;
 @Table(name = "villes")
 public class City implements IBusinessObject {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NUMERO")
     private Integer id;
     @Column(name = "CODE_POSTAL")

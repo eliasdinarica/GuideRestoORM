@@ -30,8 +30,8 @@ public class Application {
 
 // 🔍 Charger un restaurant existant
         Restaurant resto = em.find(Restaurant.class, 1);
-        System.out.println(resto.getType());
-        BasicEvaluation eval = em.find(BasicEvaluation.class, 6);
+
+        BasicEvaluation eval = em.find(BasicEvaluation.class, 5);
         System.out.println(eval.getRestaurant());
         em.close();
         emf.close();

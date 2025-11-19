@@ -8,6 +8,12 @@ import java.util.Date;
 public abstract class Evaluation implements IBusinessObject {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_eval")
+    @SequenceGenerator(
+            name = "seq_eval",
+            sequenceName = "seq_eval",
+            allocationSize = 1
+    )
     @Column(name = "NUMERO")
     private Integer id;
 
