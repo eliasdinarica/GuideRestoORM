@@ -8,14 +8,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public abstract class AbstractMapper<T extends IBusinessObject> {
 
     protected static final Logger logger = LogManager.getLogger();
-
+    protected abstract Map<Integer, T> getIdentityMap();
     public abstract T findById(int id);
     public abstract Set<T> findAll();
     public abstract T create(T object);
@@ -89,37 +88,31 @@ public abstract class AbstractMapper<T extends IBusinessObject> {
     }
 
     /**
-     * Vérifie si le cache est actuellement vide
-     * @return true si le cache ne contient aucun objet, false sinon
+     * Vérifie si le cache est actuellement vide.
      */
     protected boolean isCacheEmpty() {
-        // TODO à implémenter par vos soins
-        throw new UnsupportedOperationException("Vous devez implémenter votre cache vous-même !");
+        return getIdentityMap().isEmpty();
     }
 
     /**
-     * Vide le cache
+     * Vide le cache.
      */
     protected void resetCache() {
-        // TODO à implémenter par vos soins
-        throw new UnsupportedOperationException("Vous devez implémenter votre cache vous-même !");
+        getIdentityMap().clear();
     }
 
     /**
-     * Ajoute un objet au cache
-     * @param objet l'objet à ajouter
+     * Ajoute un objet au cache.
      */
-    protected void addToCache(T objet) {
-        // TODO à implémenter par vos soins
-        throw new UnsupportedOperationException("Vous devez implémenter votre cache vous-même !");
+    protected void addToCache(T object) {
+        if (object == null) return;
+        getIdentityMap().put(object.getId(), object);
     }
 
     /**
-     * Retire un objet du cache
-     * @param id l'ID de l'objet à retirer du cache
+     * Retire un objet du cache.
      */
     protected void removeFromCache(Integer id) {
-        // TODO à implémenter par vos soins
-        throw new UnsupportedOperationException("Vous devez implémenter votre cache vous-même !");
+        getIdentityMap().remove(id);
     }
 }

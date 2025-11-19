@@ -10,6 +10,10 @@ public class BasicEvaluation extends Evaluation {
     @Column(name = "APPRECIATION", nullable = false, length = 1)
     private Boolean likeRestaurant;
 
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
     @Column(name = "ADRESSE_IP", nullable = false, length = 100)
     private String ipAddress;
 
