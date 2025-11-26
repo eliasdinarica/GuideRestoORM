@@ -10,6 +10,20 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "types_gastronomiques")
+@NamedQueries({
+        @NamedQuery(
+                name = "RestaurantType.findAll",
+                query = "SELECT t FROM RestaurantType t ORDER BY t.label"
+        ),
+        @NamedQuery(
+                name = "RestaurantType.findByLabel",
+                query = "SELECT t FROM RestaurantType t WHERE t.label = :label"
+        ),
+        @NamedQuery(
+                name = "RestaurantType.searchByLabel",
+                query = "SELECT t FROM RestaurantType t WHERE LOWER(t.label) LIKE LOWER(:text)"
+        )
+})
 public class RestaurantType implements IBusinessObject {
     @Id
     @Column(name = "NUMERO")
