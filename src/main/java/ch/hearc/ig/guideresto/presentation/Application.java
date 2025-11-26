@@ -3,6 +3,7 @@ package ch.hearc.ig.guideresto.presentation;
 import ch.hearc.ig.guideresto.business.*;
 import ch.hearc.ig.guideresto.persistence.FakeItems;
 import ch.hearc.ig.guideresto.persistence.RestaurantTypeMapper;
+import ch.hearc.ig.guideresto.service.RestaurantTypeService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -29,18 +30,19 @@ public class Application {
         EntityManager em = emf.createEntityManager();
 
 // 🔍 Charger un restaurant existant
-       /* Restaurant resto = em.find(Restaurant.class, 1);
+       Restaurant resto = em.find(Restaurant.class, 1);
 
         BasicEvaluation eval = em.find(BasicEvaluation.class, 5);
-        System.out.println(eval.getRestaurant());
-        em.close();
-        emf.close();*/
+        System.out.println(eval);
+
 
         RestaurantTypeMapper mapper = new RestaurantTypeMapper();
-        System.out.println(mapper.findAll(em));
+        RestaurantTypeService serv = new RestaurantTypeService();
+        System.out.println(serv.getAll());
 
 
-
+        em.close();
+        emf.close();
 
 
         scanner = new Scanner(System.in);
