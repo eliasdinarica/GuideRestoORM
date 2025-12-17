@@ -5,6 +5,7 @@ import ch.hearc.ig.guideresto.persistence.RestaurantTypeMapper;
 import ch.hearc.ig.guideresto.persistence.jpa.JpaUtils;
 
 import java.util.List;
+import java.util.Set;
 
 public class RestaurantTypeService {
 
@@ -25,9 +26,9 @@ public class RestaurantTypeService {
     }
 
 
-    public List<RestaurantType> getAll() {
+    public Set<RestaurantType> getAll() {
 
-        class Holder { List<RestaurantType> value; }
+        class Holder { Set<RestaurantType> value; }
         Holder h = new Holder();
 
         JpaUtils.inTransaction(em -> {

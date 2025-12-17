@@ -2,19 +2,19 @@ package ch.hearc.ig.guideresto.persistence;
 
 import ch.hearc.ig.guideresto.business.RestaurantType;
 import jakarta.persistence.EntityManager;
+
 import java.util.List;
 
-public class RestaurantTypeMapper {
+public class RestaurantTypeMapper extends AbstractMapper<RestaurantType> {
 
-    // ========= CRUD ========= //
+    public RestaurantTypeMapper() {
+        super(RestaurantType.class, "RestaurantType.findAll");
+    }
+
+    // ========= CRUD spécifiques ========= //
 
     public RestaurantType findById(EntityManager em, Integer id) {
         return em.find(RestaurantType.class, id);
-    }
-
-    public List<RestaurantType> findAll(EntityManager em) {
-        return em.createNamedQuery("RestaurantType.findAll", RestaurantType.class)
-                .getResultList();
     }
 
     public void save(EntityManager em, RestaurantType type) {
@@ -25,12 +25,7 @@ public class RestaurantTypeMapper {
         }
     }
 
-    public void delete(EntityManager em, RestaurantType type) {
-        em.remove(em.merge(type));
-    }
-
-
-    // ========= Fonctions de recherche pratiques ========= //
+    // ========= Fonctions de recherche spécifiques ========= //
 
     public List<RestaurantType> findByLabel(EntityManager em, String label) {
         return em.createNamedQuery("RestaurantType.findByLabel", RestaurantType.class)
