@@ -4,14 +4,11 @@ import ch.hearc.ig.guideresto.business.RestaurantType;
 import ch.hearc.ig.guideresto.persistence.RestaurantTypeMapper;
 import ch.hearc.ig.guideresto.persistence.jpa.JpaUtils;
 
-import java.util.List;
 import java.util.Set;
 
 public class RestaurantTypeService {
 
     private final RestaurantTypeMapper mapper = new RestaurantTypeMapper();
-
-    // ========= READ ========= //
 
     public RestaurantType getById(Integer id) {
 

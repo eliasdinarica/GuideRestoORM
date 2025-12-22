@@ -10,8 +10,43 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "villes")
+@NamedQuery(
+        name = "City.findByZipAndName",
+        query = """
+            SELECT c FROM City c
+            WHERE c.zipCode = :zip
+              AND LOWER(c.cityName) = LOWER(:name)
+            """
+)
+@NamedQuery(
+        name = "City.findAll",
+        query = "SELECT c FROM City c ORDER BY c.cityName"
+)
+@NamedQuery(
+        name = "City.findByName",
+        query = """
+                SELECT c
+                FROM City c
+                WHERE LOWER(c.cityName) = LOWER(:name)
+                """
+)
+@NamedQuery(
+        name = "City.findByZipCode",
+        query = """
+                SELECT c
+                FROM City c
+                WHERE c.zipCode = :zip
+                ORDER BY c.cityName
+                """
+)
 public class City implements IBusinessObject {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "villes_seq")
+    @SequenceGenerator(
+            name = "villes_seq",
+            sequenceName = "SEQ_VILLES",
+            allocationSize = 1
+    )
     @Column(name = "NUMERO")
     private Integer id;
     @Column(name = "CODE_POSTAL")

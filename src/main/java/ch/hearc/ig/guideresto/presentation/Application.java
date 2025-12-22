@@ -3,6 +3,7 @@ package ch.hearc.ig.guideresto.presentation;
 import ch.hearc.ig.guideresto.business.*;
 import ch.hearc.ig.guideresto.persistence.FakeItems;
 import ch.hearc.ig.guideresto.persistence.RestaurantTypeMapper;
+import ch.hearc.ig.guideresto.service.RestaurantService;
 import ch.hearc.ig.guideresto.service.RestaurantTypeService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -25,7 +26,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-
+/*
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("guideRestoJPA");
         EntityManager em = emf.createEntityManager();
 
@@ -43,7 +44,23 @@ public class Application {
 
         em.close();
         emf.close();
+*/
+        RestaurantService restService = new RestaurantService();
+        RestaurantTypeService typeService = new RestaurantTypeService();
+        City city = new City("2000", "Neuchâtelle");
+        Localisation address = new Localisation("Rue de l'Hôpital 12", city);
+        RestaurantType type = typeService.getById(1);
 
+        Restaurant restaurant = new Restaurant(
+                null,
+                "La Bonne Fourchette188",
+                "Cuisine traditionnelle",
+                "https://labonnefourchette.ch",
+                address,
+                type
+        );
+
+        restService.create(restaurant);
 
         scanner = new Scanner(System.in);
 

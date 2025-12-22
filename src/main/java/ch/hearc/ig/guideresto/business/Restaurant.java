@@ -7,10 +7,38 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@NamedQuery(
+        name = "Restaurant.findAll",
+        query = "SELECT r FROM Restaurant r ORDER BY r.name"
+)
+@NamedQuery(
+        name = "Restaurant.findByCity",
+        query = """
+                SELECT r
+                FROM Restaurant r
+                WHERE r.address.city.id = :cityId
+                ORDER BY r.name
+                """
+)
+@NamedQuery(
+        name = "Restaurant.findByType",
+        query = """
+                SELECT r
+                FROM Restaurant r
+                WHERE r.type.id = :typeId
+                ORDER BY r.name
+                """
+)
 @Table(name = "restaurants")
 public class Restaurant implements IBusinessObject {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "restaurant_seq")
+    @SequenceGenerator(
+            name = "restaurant_seq",
+            sequenceName = "SEQ_RESTAURANTS",
+            allocationSize = 1
+    )
     @Column(name = "NUMERO")
     private Integer id;
 
@@ -32,7 +60,11 @@ public class Restaurant implements IBusinessObject {
     @JoinColumn(name = "FK_TYPE", nullable = false)
     private RestaurantType type;
 
-    @Transient
+    @OneToMany(
+            mappedBy = "restaurant",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private Set<Evaluation> evaluations;
 
     public Restaurant() {
