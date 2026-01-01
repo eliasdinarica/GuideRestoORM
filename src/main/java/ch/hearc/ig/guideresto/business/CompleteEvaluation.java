@@ -7,6 +7,15 @@ import java.util.Set;
 
 @Entity
 @Table(name = "COMMENTAIRES")
+@NamedQuery(
+        name = "CompleteEvaluation.findByRestaurant",
+        query = """
+                SELECT e
+                FROM CompleteEvaluation e
+                WHERE e.restaurant.id = :restaurantId
+                ORDER BY e.visitDate DESC
+                """
+)
 public class CompleteEvaluation extends Evaluation {
     
     @Column(name = "COMMENTAIRE", nullable = false)

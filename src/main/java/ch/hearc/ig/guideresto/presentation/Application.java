@@ -3,6 +3,7 @@ package ch.hearc.ig.guideresto.presentation;
 import ch.hearc.ig.guideresto.business.*;
 import ch.hearc.ig.guideresto.persistence.FakeItems;
 import ch.hearc.ig.guideresto.persistence.RestaurantTypeMapper;
+import ch.hearc.ig.guideresto.service.EvaluationService;
 import ch.hearc.ig.guideresto.service.RestaurantService;
 import ch.hearc.ig.guideresto.service.RestaurantTypeService;
 import jakarta.persistence.EntityManager;
@@ -44,7 +45,7 @@ public class Application {
 
         em.close();
         emf.close();
-*/
+*//*
         RestaurantService restService = new RestaurantService();
         RestaurantTypeService typeService = new RestaurantTypeService();
         City city = new City("2000", "Neuchâtelle");
@@ -61,6 +62,77 @@ public class Application {
         );
 
         restService.create(restaurant);
+*/
+        RestaurantService restaurantService = new RestaurantService();
+        EvaluationService evaluationService = new EvaluationService();
+
+        // 1️⃣ Créer un restaurant (ou récupérer un existant)
+        City city = new City("2000", "Neuchâtel");
+        Localisation address = new Localisation("Rue de l'Hôpital 12", city);
+
+        RestaurantType type = new RestaurantType();
+        type.setId(1); // ⚠️ doit exister en DB
+
+        Restaurant restaurant = new Restaurant(
+                null,
+                "Test Évaluations",
+                "Restaurant pour test des évaluations",
+                null,
+                address,
+                type
+        );
+
+        restaurant = restaurantService.create(restaurant);
+
+        System.out.println("Restaurant créé avec id = " + restaurant.getId());
+
+        // -------------------------------------------------------
+        // 2️⃣ BASIC EVALUATION (LIKE)
+        // -------------------------------------------------------
+
+        BasicEvaluation like = evaluationService.addBasicEvaluation(
+                restaurant.getId(),
+                true,
+                "127.0.0.1"
+        );
+
+        System.out.println(
+                "BasicEvaluation créée (id=" + like.getId() + ", like=" + like.getLikeRestaurant() + ")"
+        );
+
+        // -------------------------------------------------------
+        // 3️⃣ COMPLETE EVALUATION + GRADES
+        // -------------------------------------------------------
+
+        Map<Integer, Integer> notes = new HashMap<>();
+        notes.put(1, 5); // ⚠️ criteriaId 1 doit exister
+        notes.put(2, 4);
+        notes.put(3, 3);
+
+        CompleteEvaluation complete = evaluationService.addCompleteEvaluation(
+                restaurant.getId(),
+                "cedric",
+                "Très bon restaurant",
+                notes
+        );
+
+        System.out.println(
+                "CompleteEvaluation créée (id=" + complete.getId() + ", user=" + complete.getUsername() + ")"
+        );
+
+        // -------------------------------------------------------
+        // 4️⃣ Vérification des notes
+        // -------------------------------------------------------
+
+        System.out.println("Notes associées :");
+        for (Grade g : complete.getGrades()) {
+            System.out.println(
+                    "- " + g.getCriteria().getName() + " = " + g.getGrade() + "/5"
+            );
+        }
+
+        System.out.println("✅ TEST TERMINÉ AVEC SUCCÈS");
+
 
         scanner = new Scanner(System.in);
 

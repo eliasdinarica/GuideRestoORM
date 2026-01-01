@@ -5,6 +5,15 @@ import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NamedQuery(
+        name = "Evaluation.findByRestaurant",
+        query = """
+                SELECT e
+                FROM Evaluation e
+                WHERE e.restaurant.id = :restaurantId
+                ORDER BY e.visitDate DESC
+                """
+)
 public abstract class Evaluation implements IBusinessObject {
 
     @Id

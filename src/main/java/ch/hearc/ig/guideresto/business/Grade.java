@@ -3,10 +3,33 @@ package ch.hearc.ig.guideresto.business;
 import jakarta.persistence.*;
 
 @Entity
+@NamedQuery(
+        name = "Grade.findByEvaluation",
+        query = """
+                SELECT g
+                FROM Grade g
+                WHERE g.evaluation.id = :evaluationId
+                """
+)
+@NamedQuery(
+        name = "Grade.findByCriteria",
+        query = """
+                SELECT g
+                FROM Grade g
+                WHERE g.criteria.id = :criteriaId
+                """
+)
+
 @Table(name = "NOTES")
 public class Grade implements IBusinessObject {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "notes_seq")
+    @SequenceGenerator(
+            name = "notes_seq",
+            sequenceName = "SEQ_NOTES",
+            allocationSize = 1
+    )
     @Column(name = "NUMERO")
     private Integer id;
 

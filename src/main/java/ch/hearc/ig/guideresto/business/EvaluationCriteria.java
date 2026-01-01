@@ -7,8 +7,18 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "criteres_evaluation")
+@NamedQuery(
+        name = "EvaluationCriteria.findAll",
+        query = "SELECT c FROM EvaluationCriteria c ORDER BY c.name"
+)
 public class EvaluationCriteria implements IBusinessObject {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "critere_seq")
+    @SequenceGenerator(
+            name = "critere_seq",
+            sequenceName = "SEQ_CRITERES_EVALUATION",
+            allocationSize = 1
+    )
     @Column(name = "NUMERO")
     private Integer id;
     @Column(name = "NOM")
