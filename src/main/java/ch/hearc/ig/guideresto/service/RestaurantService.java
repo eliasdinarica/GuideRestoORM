@@ -8,6 +8,7 @@ import ch.hearc.ig.guideresto.persistence.CityMapper;
 import ch.hearc.ig.guideresto.persistence.RestaurantMapper;
 import ch.hearc.ig.guideresto.persistence.RestaurantTypeMapper;
 import ch.hearc.ig.guideresto.persistence.jpa.JpaUtils;
+import jakarta.persistence.OptimisticLockException;
 
 public class RestaurantService {
 
@@ -62,6 +63,28 @@ public class RestaurantService {
         });
 
         return h.value;
+    }
+    public void update(Restaurant restaurant) {
+
+        JpaUtils.inTransaction(em -> {
+            try {
+                Restaurant managed = em.find(Restaurant.class, restaurant.getId());
+                if (managed == null) {
+                    throw new IllegalArgumentException("Restaurant inexistant");
+                }
+
+                managed.setName(restaurant.getName());
+                managed.setDescription(restaurant.getDescription());
+                managed.setWebsite(restaurant.getWebsite());
+                managed.setAddress(restaurant.getAddress());
+                managed.setType(restaurant.getType());
+
+            } catch (OptimisticLockException e) {
+                throw new IllegalStateException(
+                        "Modification concurrente détectée sur le restaurant"
+                );
+            }
+        });
     }
 
 

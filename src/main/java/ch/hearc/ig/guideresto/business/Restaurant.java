@@ -31,7 +31,9 @@ import java.util.Set;
 )
 @Table(name = "restaurants")
 public class Restaurant implements IBusinessObject {
-
+    @Version
+    @Column(name = "VERSION")
+    private Long version;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "restaurant_seq")
     @SequenceGenerator(
