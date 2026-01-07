@@ -10,6 +10,8 @@ import ch.hearc.ig.guideresto.persistence.RestaurantTypeMapper;
 import ch.hearc.ig.guideresto.persistence.jpa.JpaUtils;
 import jakarta.persistence.OptimisticLockException;
 
+import java.util.Set;
+
 public class RestaurantService {
 
     private final RestaurantMapper restaurantMapper = new RestaurantMapper();
@@ -86,6 +88,64 @@ public class RestaurantService {
             }
         });
     }
+    public Restaurant getById(Integer id) {
+
+        class Holder { Restaurant value; }
+        Holder h = new Holder();
+
+        JpaUtils.inTransaction(em -> {
+            h.value = restaurantMapper.findById(em, id);
+        });
+
+        return h.value;
+    }
+    public Set<Restaurant> getAll() {
+
+        class Holder { Set<Restaurant> value; }
+        Holder h = new Holder();
+
+        JpaUtils.inTransaction(em -> {
+            h.value = restaurantMapper.findAll(em);
+        });
+
+        return h.value;
+    }
+    public Set<Restaurant> getByCity(Integer cityId) {
+
+        class Holder { Set<Restaurant> value; }
+        Holder h = new Holder();
+
+        JpaUtils.inTransaction(em -> {
+            h.value = restaurantMapper.findByCity(em, cityId);
+        });
+
+        return h.value;
+    }
+    public Set<Restaurant> getByType(Integer typeId) {
+
+        class Holder { Set<Restaurant> value; }
+        Holder h = new Holder();
+
+        JpaUtils.inTransaction(em -> {
+            h.value = restaurantMapper.findByType(em, typeId);
+        });
+
+        return h.value;
+    }
+    public void delete(Integer restaurantId) {
+
+        JpaUtils.inTransaction(em -> {
+
+            Restaurant restaurant = restaurantMapper.findById(em, restaurantId);
+
+            if (restaurant == null) {
+                throw new IllegalArgumentException("Restaurant inexistant");
+            }
+
+            restaurantMapper.delete(em, restaurant);
+        });
+    }
+
 
 
 }

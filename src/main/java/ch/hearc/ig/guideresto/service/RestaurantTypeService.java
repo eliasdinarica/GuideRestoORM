@@ -34,5 +34,28 @@ public class RestaurantTypeService {
 
         return h.value;
     }
+    public Set<RestaurantType> getByLabel(String label) {
+
+        class Holder { Set<RestaurantType> value; }
+        Holder h = new Holder();
+
+        JpaUtils.inTransaction(em -> {
+            h.value = Set.copyOf(mapper.findByLabel(em, label));
+        });
+
+        return h.value;
+    }
+    public Set<RestaurantType> searchByLabel(String text) {
+
+        class Holder { Set<RestaurantType> value; }
+        Holder h = new Holder();
+
+        JpaUtils.inTransaction(em -> {
+            h.value = Set.copyOf(mapper.searchByLabel(em, text));
+        });
+
+        return h.value;
+    }
+
 
 }
