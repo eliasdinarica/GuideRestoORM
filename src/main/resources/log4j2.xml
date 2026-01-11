@@ -19,6 +19,10 @@
         <!--<Logger name="ch.hearc.ig.guideresto" level="DEBUG" additivity="false">
             <AppenderRef ref="DEBUG_LOG"/>
         </Logger>-->
+        <!-- ❌ Hibernate -->
+        <Logger name="org.hibernate" level="ERROR"/>
+        <Logger name="org.hibernate.SQL" level="OFF"/>
+        <Logger name="org.hibernate.type" level="OFF"/>
         <Root level="DEBUG">
             <AppenderRef ref="CONSOLE" level="INFO"/>
             <AppenderRef ref="MAIN" level="WARN"/>

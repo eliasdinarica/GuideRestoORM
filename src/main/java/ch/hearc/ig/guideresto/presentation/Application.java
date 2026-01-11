@@ -533,6 +533,7 @@ public class Application {
         System.out.println("Etes-vous sûr de vouloir supprimer ce restaurant ? (O/n)");
         String choice = readString();
         if (choice.equals("o") || choice.equals("O")) {
+
             restaurantService.delete(restaurant.getId());
             System.out.println("Le restaurant a bien été supprimé !");
         }

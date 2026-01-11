@@ -16,10 +16,6 @@ public class EvaluationMapper extends AbstractMapper<Evaluation> {
 
     // ========= CRUD ========= //
 
-    public Evaluation findById(EntityManager em, Integer id) {
-        return em.find(Evaluation.class, id);
-    }
-
     public void save(EntityManager em, Evaluation evaluation) {
         if (evaluation.getId() == null) {
             em.persist(evaluation);
@@ -28,7 +24,12 @@ public class EvaluationMapper extends AbstractMapper<Evaluation> {
         }
     }
 
+
     // ========= Recherches ========= //
+
+    public Evaluation findById(EntityManager em, Integer id) {
+        return em.find(Evaluation.class, id);
+    }
 
     public Set<Evaluation> findByRestaurant(EntityManager em, Integer restaurantId) {
         return em.createNamedQuery("Evaluation.findByRestaurant", Evaluation.class)

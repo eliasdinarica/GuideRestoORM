@@ -9,10 +9,6 @@ public class CityService {
 
     private final CityMapper mapper = new CityMapper();
 
-    // =====================================================
-    // LECTURE
-    // =====================================================
-
     public City getById(Integer id) {
 
         class Holder { City value; }

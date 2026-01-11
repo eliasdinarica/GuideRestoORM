@@ -14,10 +14,8 @@ public class RestaurantMapper extends AbstractMapper<Restaurant> {
         super(Restaurant.class, "Restaurant.findAll");
     }
 
-    public Restaurant findById(EntityManager em, Integer id) {
-        return em.find(Restaurant.class, id);
-    }
 
+    // ========= CRUD ========= //
     public void save(EntityManager em, Restaurant restaurant) {
         if (restaurant.getId() == null) {
             em.persist(restaurant);
@@ -26,7 +24,11 @@ public class RestaurantMapper extends AbstractMapper<Restaurant> {
         }
     }
 
-    // Recherches spécifiques possibles
+    // ========= Recherches ========= //
+
+    public Restaurant findById(EntityManager em, Integer id) {
+        return em.find(Restaurant.class, id);
+    }
     public Set<Restaurant> findByCity(EntityManager em, Integer cityId) {
         return em.createNamedQuery("Restaurant.findByCity", Restaurant.class)
                 .setParameter("cityId", cityId)

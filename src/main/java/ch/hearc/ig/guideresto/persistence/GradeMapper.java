@@ -15,10 +15,6 @@ public class GradeMapper extends AbstractMapper<Grade> {
 
     // ========= CRUD ========= //
 
-    public Grade findById(EntityManager em, Integer id) {
-        return em.find(Grade.class, id);
-    }
-
     public void save(EntityManager em, Grade grade) {
         if (grade.getId() == null) {
             em.persist(grade);
@@ -27,7 +23,12 @@ public class GradeMapper extends AbstractMapper<Grade> {
         }
     }
 
-    // ========= Recherches spécifiques ========= //
+
+    // ========= Recherches ========= //
+
+    public Grade findById(EntityManager em, Integer id) {
+        return em.find(Grade.class, id);
+    }
 
     public Set<Grade> findByEvaluation(EntityManager em, Integer evaluationId) {
         return em.createNamedQuery("Grade.findByEvaluation", Grade.class)

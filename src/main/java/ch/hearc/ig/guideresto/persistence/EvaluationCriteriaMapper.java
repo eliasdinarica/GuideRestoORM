@@ -13,6 +13,8 @@ public class EvaluationCriteriaMapper extends AbstractMapper<EvaluationCriteria>
         super(EvaluationCriteria.class, "EvaluationCriteria.findAll");
     }
 
+    // ========= Recherches ========= //
+
     public EvaluationCriteria findById(EntityManager em, Integer id) {
         return em.find(EvaluationCriteria.class, id);
     }

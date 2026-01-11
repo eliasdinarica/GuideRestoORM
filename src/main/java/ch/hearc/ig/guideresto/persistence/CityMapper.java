@@ -13,10 +13,6 @@ public class CityMapper extends AbstractMapper<City> {
 
     // ========= CRUD ========= //
 
-    public City findById(EntityManager em, Integer id) {
-        return em.find(City.class, id);
-    }
-
     public void save(EntityManager em, City city) {
         if (city.getId() == null) {
             em.persist(city);
@@ -27,7 +23,11 @@ public class CityMapper extends AbstractMapper<City> {
 
 
 
+
     // ========= Recherches ========= //
+    public City findById(EntityManager em, Integer id) {
+        return em.find(City.class, id);
+    }
 
     public City findByName(EntityManager em, String name) {
         return em.createNamedQuery("City.findByName", City.class)

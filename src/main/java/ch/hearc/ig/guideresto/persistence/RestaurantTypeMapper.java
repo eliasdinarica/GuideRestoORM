@@ -11,11 +11,7 @@ public class RestaurantTypeMapper extends AbstractMapper<RestaurantType> {
         super(RestaurantType.class, "RestaurantType.findAll");
     }
 
-    // ========= CRUD spécifiques ========= //
-
-    public RestaurantType findById(EntityManager em, Integer id) {
-        return em.find(RestaurantType.class, id);
-    }
+    // ========= CRUD ========= //
 
     public void save(EntityManager em, RestaurantType type) {
         if (type.getId() == null) {
@@ -25,7 +21,12 @@ public class RestaurantTypeMapper extends AbstractMapper<RestaurantType> {
         }
     }
 
-    // ========= Fonctions de recherche spécifiques ========= //
+
+    // ========= Recherches ========= //
+
+    public RestaurantType findById(EntityManager em, Integer id) {
+        return em.find(RestaurantType.class, id);
+    }
 
     public List<RestaurantType> findByLabel(EntityManager em, String label) {
         return em.createNamedQuery("RestaurantType.findByLabel", RestaurantType.class)

@@ -14,10 +14,6 @@ public class EvaluationService {
     private final GradeMapper gradeMapper = new GradeMapper();
     private final EvaluationCriteriaMapper criteriaMapper = new EvaluationCriteriaMapper();
 
-    // =========================================================
-    // 👍 / 👎 BASIC EVALUATION
-    // =========================================================
-
     public BasicEvaluation addBasicEvaluation(
             Integer restaurantId,
             Boolean likeRestaurant,
@@ -49,7 +45,7 @@ public class EvaluationService {
     }
 
     // =========================================================
-    // 📝 COMPLETE EVALUATION + GRADES
+    // COMPLETE EVALUATION + GRADES
     // =========================================================
 
     public CompleteEvaluation addCompleteEvaluation(
@@ -64,13 +60,13 @@ public class EvaluationService {
 
         JpaUtils.inTransaction(em -> {
 
-            // 1️⃣ Restaurant existant
+            // 1️. Restaurant existant
             Restaurant restaurant = restaurantMapper.findById(em, restaurantId);
             if (restaurant == null) {
                 throw new IllegalArgumentException("Restaurant inexistant");
             }
 
-            // 2️⃣ Création de l’évaluation complète
+            // 2. Création de l’évaluation complète
             CompleteEvaluation evaluation = new CompleteEvaluation(
                     new Date(),
                     restaurant,
@@ -80,7 +76,7 @@ public class EvaluationService {
 
             evaluationMapper.save(em, evaluation);
 
-            // 3️⃣ Création des notes
+            // 3. Création des notes
             for (Map.Entry<Integer, Integer> entry : gradesByCriteriaId.entrySet()) {
 
                 Integer criteriaId = entry.getKey();

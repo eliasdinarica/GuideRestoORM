@@ -29,6 +29,10 @@ public abstract class AbstractMapper<T extends IBusinessObject> {
     // ========= DELETE ========= //
 
     public void delete(EntityManager em, T entity) {
-        em.remove(em.merge(entity));
+        if (!em.contains(entity)) {
+            entity = em.merge(entity);
+        }
+        em.remove(entity);
     }
+
 }

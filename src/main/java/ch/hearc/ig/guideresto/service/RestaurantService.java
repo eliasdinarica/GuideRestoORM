@@ -8,6 +8,7 @@ import ch.hearc.ig.guideresto.persistence.CityMapper;
 import ch.hearc.ig.guideresto.persistence.RestaurantMapper;
 import ch.hearc.ig.guideresto.persistence.RestaurantTypeMapper;
 import ch.hearc.ig.guideresto.persistence.jpa.JpaUtils;
+import jakarta.persistence.LockModeType;
 import jakarta.persistence.OptimisticLockException;
 
 import java.util.Set;
@@ -133,18 +134,18 @@ public class RestaurantService {
         return h.value;
     }
     public void delete(Integer restaurantId) {
-
         JpaUtils.inTransaction(em -> {
-
             Restaurant restaurant = restaurantMapper.findById(em, restaurantId);
-
             if (restaurant == null) {
                 throw new IllegalArgumentException("Restaurant inexistant");
             }
-
             restaurantMapper.delete(em, restaurant);
         });
     }
+
+
+
+
 
 
 
